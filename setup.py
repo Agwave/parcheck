@@ -7,6 +7,6 @@ setuptools.setup(
     author="agwave",
     author_email="agwave@foxmail.com",
     description="check parameter",
-    url="https://github.com/Agwave/checker.git",
+    url="https://github.com/Agwave/parcheck.git",
     python_requires=">=3"
 )
