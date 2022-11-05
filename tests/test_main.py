@@ -1,6 +1,6 @@
 import pytest
 
-import checker
+import parcheck
 
 
 def test_check():
@@ -13,7 +13,7 @@ def test_check():
             "price": int
         }
     }
-    rseult = checker.check(param, constraint)
+    rseult = parcheck.check(param, constraint)
     assert rseult
 
 

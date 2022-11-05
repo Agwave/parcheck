@@ -2,11 +2,11 @@ import setuptools
 
 
 setuptools.setup(
-    name="checker",
+    name="parcheck",
     vesion="0.0.1",
     author="agwave",
     author_email="agwave@foxmail.com",
     description="check parameter",
-    url="",
+    url="https://github.com/Agwave/checker.git",
     python_requires=">=3"
 )

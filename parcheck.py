@@ -1,13 +1,13 @@
 
 
-def check(parma, constraint):
+def check(param, constraint):
     """
     检查输入参数 param 是否满足 约束 constraint
-    :param parma: 参数
+    :param param: 参数
     :param constraint: 约束
     :return: bool
     """
-    return check_dict(parma, constraint)
+    return check_dict(param, constraint)
 
 
 def check_dict(param, constraint):
