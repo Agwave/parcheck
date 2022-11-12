@@ -1,0 +1,4 @@
+ignoredir
+.idea
+parcheck.egg-info
+dist
