@@ -1,3 +1,4 @@
+from parcheck.patterner import pattern_struct
 
 
 def check(param, pattern):
@@ -7,10 +8,11 @@ def check(param, pattern):
     :param pattern: 模板
     :return: bool
     """
-    return check_dict(param, pattern)
+    struct = pattern_struct(pattern)
+    return _check_dict(param, struct)
 
 
-def check_dict(param, pattern):
+def _check_dict(param, pattern):
     for k in pattern["key2type"]:
         if k not in param:
             return False

@@ -83,10 +83,10 @@ data = {
 
 # 自定义检查模板：是个 dict，且有 "name", "age" 两个键，"name" 键对应的值是 str，"age" 键对应的值是 int
 pattern = {
-    "struct": dict,
-    "key2struct": {
-        "name": str,
-        "age": int
+    "struct": "dict",
+    "elements": {
+        "name": "str",
+        "age": "int"
     }
 }
 
