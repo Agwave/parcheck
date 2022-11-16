@@ -57,7 +57,7 @@ def test_check_dict_3():
             "book": "str",
             "price": "int"
         },
-        "elements_options": {
+        "elements_optional": {
             "isgood": "bool"
         }
     }
@@ -86,7 +86,7 @@ def test_check_dict_5():
         "elements": {
             "language": "str",
             "book": "str",
-            "price": ["int", None]
+            "price": ["int", "None"]
         }
     }
     assert parcheck.check(param, pattern)["result"]

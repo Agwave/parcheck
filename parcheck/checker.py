@@ -42,6 +42,8 @@ def _pattern_object_by_str(pattern):
         return FloatStruct({"struct": pattern})
     elif pattern == "bool":
         return BoolStruct({"struct": pattern})
+    elif pattern == "None":
+        return NoneStruct({"struct": pattern})
     else:
         raise ex.PatternFormatError(Message.PATTERN_STRUCT_NOT_FOUND)
 
@@ -49,13 +51,21 @@ def _pattern_object_by_str(pattern):
 def _pattern_object_by_dict(pattern):
     if PatterKey.STRUCT_KEY not in pattern:
         raise ex.PatternFormatError(Message.STRUCT_KEY_NOT_FOUND)
-    if PatterKey.ELEMENTS_KEY not in pattern:
-        raise ex.PatternFormatError(Message.ELEMENTS_KEY_NOT_FOUND)
     name = pattern[PatterKey.STRUCT_KEY]
     if name == "dict":
         return DictStruct(pattern)
     elif name == "list":
         return ListStruct(pattern)
+    elif name == "str":
+        return StrStruct(pattern)
+    elif name == "int":
+        return IntStruct(pattern)
+    elif name == "float":
+        return FloatStruct(pattern)
+    elif name == "bool":
+        return BoolStruct(pattern)
+    elif name == "None":
+        return NoneStruct(pattern)
     else:
         raise ex.PatternFormatError(Message.PATTERN_VALUE_NOT_FOUND.format(name))
 
