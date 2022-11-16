@@ -149,6 +149,7 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```python
 {
     "struct": "list",
+    "strict": True,
     "elements": "{pattern}"
 }
 ```
@@ -166,6 +167,7 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```python
 {
     "struct": "list",
+	"strict": True
     "elements": "str"
 }
 ```
@@ -177,6 +179,7 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```python
 {
     "struct": "list",
+    "strict": True
     "elements": ["str", "int"]
 }
 ```
@@ -188,6 +191,7 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```python
 {
     "struct": "list",
+    "strict": True
     "elements": ["str", "None"]
 }
 ```
@@ -199,6 +203,7 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```python
 {
     "struct": "set",
+    "strict": True,
     "elements": "{pattern}"
 }
 ```
@@ -216,6 +221,7 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```python
 {
     "struct": "set",
+  	"strict": True,
     "elements": "str"
 }
 ```
@@ -227,6 +233,7 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```python
 {
     "struct": "set",
+    "strict": True,
     "elements": ["str", "int"]
 }
 ```
@@ -238,6 +245,7 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```python
 {
     "struct": "set",
+    "strict": True,
     "elements": ["str", "None"]
 }
 ```
