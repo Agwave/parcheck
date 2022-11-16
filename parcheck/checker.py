@@ -56,6 +56,8 @@ def _pattern_object_by_dict(pattern):
         return DictStruct(pattern)
     elif name == "list":
         return ListStruct(pattern)
+    elif name == "set":
+        return SetStruct(pattern)
     elif name == "str":
         return StrStruct(pattern)
     elif name == "int":

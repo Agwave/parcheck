@@ -3,10 +3,11 @@ import pytest
 from pprint import pprint
 
 import parcheck
-from parcheck.checker import pattern_struct
+from parcheck.checker import pattern_struct, StrStruct, IntStruct, BoolStruct, NoneStruct, FloatStruct, ListStruct, \
+    SetStruct, DictStruct
 
 
-def test_pattern():
+def test_pattern_dict_1():
     print()
     pattern = {
         "struct": "dict",
@@ -17,8 +18,207 @@ def test_pattern():
         }
     }
     pattern = pattern_struct(pattern)
-    pprint(pattern.pattern)
+    pprint(pattern)
     pprint(pattern._elements)
+    assert isinstance(pattern, DictStruct)
+    assert isinstance(pattern._elements["book"], StrStruct)
+    assert isinstance(pattern._elements["language"], StrStruct)
+    assert isinstance(pattern._elements["price"], IntStruct)
+
+
+def test_pattern_dict_2():
+    print()
+    pattern = {
+        "struct": "dict",
+        "strict": True,
+        "elements": {
+            "language": "str",
+            "book": "str",
+            "price": "int"
+        },
+        "elements_optional": {
+            "gender": "float"
+        }
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern._options["gender"], FloatStruct)
+
+
+def test_pattern_dict_3():
+    print()
+    pattern = {
+        "struct": "dict",
+        "elements": {
+            "language": "str",
+            "book": "str",
+            "price": ["int", "str"]
+        }
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern._elements["price"], list)
+    assert isinstance(pattern._elements["price"][0], IntStruct)
+    assert isinstance(pattern._elements["price"][1], StrStruct)
+
+
+def test_pattern_dict_4():
+    print()
+    pattern = {
+        "struct": "dict",
+        "elements": {
+            "language": "str",
+            "book": "str",
+            "price": "None"
+        }
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern._elements["price"], NoneStruct)
+
+
+def test_pattern_dict_5():
+    print()
+    pattern = {
+        "struct": "dict"
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert not pattern._elements
+
+
+def test_pattern_list_1():
+    print()
+    pattern = {
+        "struct": "list",
+        "strict": True,
+        "elements": "str"
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern._elements, StrStruct)
+
+
+def test_pattern_list_2():
+    print()
+    pattern = {
+        "struct": "list",
+        "strict": True,
+        "elements": ["str", "int", "None"]
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern._elements, list)
+    assert isinstance(pattern._elements[0], StrStruct)
+    assert isinstance(pattern._elements[1], IntStruct)
+    assert isinstance(pattern._elements[2], NoneStruct)
+
+
+def test_pattern_list_3():
+    print()
+    pattern = {
+        "struct": "list"
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert pattern._elements is None
+
+
+def test_pattern_list_4():
+    print()
+    pattern = "list"
+    pattern = pattern_struct(pattern)
+    pprint(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern, ListStruct)
+    assert pattern._elements is None
+
+
+def test_pattern_set_1():
+    print()
+    pattern = {
+        "struct": "set",
+        "strict": True,
+        "elements": "str"
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern._elements, StrStruct)
+
+
+def test_pattern_set_2():
+    print()
+    pattern = {
+        "struct": "set",
+        "strict": True,
+        "elements": ["str", "int", "None"]
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern._elements[2], NoneStruct)
+    assert isinstance(pattern._elements[1], IntStruct)
+    assert isinstance(pattern._elements[0], StrStruct)
+    assert isinstance(pattern._elements, list)
+
+
+def test_pattern_set_3():
+    print()
+    pattern = {
+        "struct": "set"
+    }
+    pattern = pattern_struct(pattern)
+    pprint(pattern._elements)
+    assert pattern._elements is None
+
+
+def test_pattern_set_4():
+    print()
+    pattern = "set"
+    pattern = pattern_struct(pattern)
+    pprint(pattern)
+    pprint(pattern._elements)
+    assert isinstance(pattern, SetStruct)
+    assert pattern._elements is None
+
+
+def test_pattern_str():
+    print()
+    pattern = "str"
+    pattern = pattern_struct(pattern)
+    print(pattern)
+    assert isinstance(pattern, StrStruct)
+
+
+def test_pattern_int():
+    print()
+    pattern = "int"
+    pattern = pattern_struct(pattern)
+    print(pattern)
+    assert isinstance(pattern, IntStruct)
+
+
+def test_pattern_float():
+    print()
+    pattern = "float"
+    pattern = pattern_struct(pattern)
+    print(pattern)
+    assert isinstance(pattern, FloatStruct)
+
+
+def test_pattern_bool():
+    print()
+    pattern = "bool"
+    pattern = pattern_struct(pattern)
+    print(pattern)
+    assert isinstance(pattern, BoolStruct)
+
+
+def test_pattern_none():
+    print()
+    pattern = "None"
+    pattern = pattern_struct(pattern)
+    print(pattern)
+    assert isinstance(pattern, NoneStruct)
 
 
 def test_check_dict_1():
@@ -89,6 +289,112 @@ def test_check_dict_5():
             "price": ["int", "None"]
         }
     }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_list_1():
+    param = ["python", "cpp", 1]
+    pattern = {
+        "struct": "list"
+    }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_list_2():
+    param = ["python", "cpp", 1]
+    pattern = {
+        "struct": "list",
+        "strict": True,
+        "elements": ["str", "int"]
+    }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_list_3():
+    param = ["python", "cpp", 1, None]
+    pattern = {
+        "struct": "list",
+        "strict": True,
+        "elements": ["str", "None", "int"]
+    }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_list_4():
+    param = ["python", "cpp"]
+    pattern = {
+        "struct": "list",
+        "strict": True,
+        "elements": "str"
+    }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_set_1():
+    param = {"python", "cpp"}
+    pattern = {
+        "struct": "set"
+    }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_set_2():
+    param = {"python", "cpp"}
+    pattern = {
+        "struct": "set",
+        "strict": True,
+        "elements": "str"
+    }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_set_3():
+    param = {"python", "cpp", 1}
+    pattern = {
+        "struct": "set",
+        "strict": True,
+        "elements": ["str", "int"]
+    }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_set_4():
+    param = {"python", "cpp", None}
+    pattern = {
+        "struct": "set",
+        "strict": True,
+        "elements": ["str", "None"]
+    }
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_str():
+    param = "python"
+    pattern = "str"
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_int():
+    param = 123
+    pattern = "int"
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_float():
+    param = 3.14
+    pattern = "float"
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_bool():
+    param = True
+    pattern = "bool"
+    assert parcheck.check(param, pattern)["result"]
+
+
+def test_check_none():
+    param = None
+    pattern = "None"
     assert parcheck.check(param, pattern)["result"]
 
 
