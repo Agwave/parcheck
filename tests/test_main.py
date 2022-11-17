@@ -5,6 +5,7 @@ from pprint import pprint
 import parcheck
 from parcheck.checker import pattern_struct, StrStruct, IntStruct, BoolStruct, NoneStruct, FloatStruct, ListStruct, \
     SetStruct, DictStruct
+from parcheck.patterner import pattern as pt
 
 
 def test_pattern_dict_1():
@@ -396,6 +397,43 @@ def test_check_none():
     param = None
     pattern = "None"
     assert parcheck.check(param, pattern)["result"]
+
+
+def test_generate_pattern_1():
+    print()
+    param = {"language": "python", "book": "python_cookbook", "price": 10}
+    pprint(pt(param))
+    assert pt(param) == {'elements': {'book': 'str', 'language': 'str', 'price': 'int'},
+                         'strict': True,
+                         'struct': 'dict'}
+
+
+def test_generate_pattern_2():
+    print()
+    param = ["python", 123]
+    pprint(pt(param))
+    assert pt(param) == {'elements': {'int', 'str'}, 'strict': True, 'struct': 'list'}
+
+
+def test_generate_pattern_3():
+    print()
+    param = {"pattern", True, None}
+    pprint(pt(param))
+    assert pt(param) == {'elements': {'int', 'str', 'None'}, 'strict': True, 'struct': 'set'}
+
+
+def test_generate_pattern_4():
+    print()
+    param = "python"
+    pprint(pt(param))
+    assert pt(param) == 'str'
+
+
+def test_generate_pattern_5():
+    print()
+    param = None
+    pprint(pt(param))
+    assert pt(param) == "None"
 
 
 if __name__ == '__main__':

@@ -10,3 +10,7 @@ class CheckError(Exception):
 
 class PatternFormatError(PatternError):
     pass
+
+
+class ParameterFormatError(Exception):
+    pass
