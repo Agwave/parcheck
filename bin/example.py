@@ -5,13 +5,14 @@ data = {
     "age": 22
 }
 
-# 检查内容：是个 dict，且有 "name", "age" 两个键，"name" 键对应的值是 str，"age" 键对应的值是 int
+# 自定义检查模板：是个 dict，且有 "name", "age" 两个键，"name" 键对应的值是 str，"age" 键对应的值是 int
 pattern = {
-    "struct": dict,
-    "key2struct": {
-        "name": str,
-        "age": int
+    "struct": "dict",
+    "elements": {
+        "name": "str",
+        "age": "int"
     }
 }
 
-parcheck.check(data, pattern)
+report = parcheck.check(data, pattern)  # 根据检查模板进行检查，返回检查报告
+print(report["result"])  # 打印检查结果

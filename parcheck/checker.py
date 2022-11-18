@@ -101,8 +101,7 @@ class PatternStruct(object):
                     match = True
                     break
             if not match:
-                types = "|".join([v.struct for v in value_element])
-                return _make_report(False, Report.PARAM_NOT_A_EXCEPT_TYPE.format(value, types))
+                return _make_report(False, Report.DICT_PARAM_VALUE_NOT_A_EXCEPT_TYPE.format(value))
         return _make_report(True)
 
 

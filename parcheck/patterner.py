@@ -5,12 +5,12 @@ from parcheck.exceptions import ParameterFormatError
 def pattern(param):
     if isinstance(param, str):
         return "str"
+    elif isinstance(param, bool):
+        return "bool"
     elif isinstance(param, int):
         return "int"
     elif isinstance(param, float):
         return "float"
-    elif isinstance(param, bool):
-        return "bool"
     elif param is None:
         return "None"
     elif isinstance(param, dict):
@@ -37,17 +37,35 @@ def _list_pattern(param):
     result = dict()
     result["struct"] = "list"
     result["strict"] = True
-    result["elements"] = set()
+    result["elements"] = list()
     for p in param:
-        result["elements"].add(pattern(p))
+        pt = pattern(p)
+        diff = True
+        for ele in result["elements"]:
+            if ele == pt:
+                diff = False
+                break
+        if diff:
+            result["elements"].append(pt)
+    if len(result["elements"]) == 1:
+        result["elements"] = result["elements"][0]
     return result
 
 
 def _set_pattern(param):
     result = dict()
     result["struct"] = "set"
+    result["elements"] = list()
     result["strict"] = True
-    result["elements"] = set()
     for p in param:
-        result["elements"].add(pattern(p))
+        diff = True
+        pt = pattern(p)
+        for ele in result["elements"]:
+            if ele == pt:
+                diff = False
+                break
+        if diff:
+            result["elements"].append(pt)
+    if len(result["elements"]) == 1:
+        result["elements"] = result["elements"][0]
     return result
