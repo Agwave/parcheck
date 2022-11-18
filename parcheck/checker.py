@@ -108,7 +108,7 @@ class PatternStruct(object):
 def _make_report(result, message=None):
     return {
         "result": result,
-        "messge": message
+        "message": message
     }
 
 
