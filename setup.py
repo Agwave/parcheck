@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setuptools.setup(
     name="parcheck",
-    version="0.1.0",
+    version="0.1.1",
     author="Agwave",
     author_email="agwave@foxmail.com",
     description="A lightweight, minimalist, easy-to-use python toolkit",
