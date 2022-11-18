@@ -305,7 +305,7 @@ def test_check_dict_6():
         }
     }
     print(parcheck.check(param, pattern))
-    assert parcheck.check(param, pattern) == {'result': False, 'messge': "'{'language': 'python'}' 中没有 'book'"}
+    assert parcheck.check(param, pattern) == {'result': False, 'message': "'{'language': 'python'}' 中没有 'book'"}
 
 
 def test_check_dict_7():
@@ -320,7 +320,7 @@ def test_check_dict_7():
     }
     print(parcheck.check(param, pattern))
     assert parcheck.check(param, pattern) == {
-        'result': False, 'messge': "'{'language': 'python', 'book': 'Effective Python'}' 中有未知的 key 'book'"}
+        'result': False, 'message': "'{'language': 'python', 'book': 'Effective Python'}' 中有未知的 key 'book'"}
 
 
 def test_check_list_1():
@@ -370,7 +370,7 @@ def test_check_list_5():
         "elements": ["str", "bool"]
     }
     print(parcheck.check(param, pattern))
-    assert parcheck.check(param, pattern) == {'result': False, 'messge': "'1' 不符合期望的模板"}
+    assert parcheck.check(param, pattern) == {'result': False, 'message': "'1' 不符合期望的模板"}
 
 
 def test_check_set_1():
@@ -418,7 +418,7 @@ def test_check_str():
     assert parcheck.check(param, pattern)["result"]
     pattern = "int"
     pprint(parcheck.check(param, pattern))
-    assert parcheck.check(param, pattern) == {'messge': "'python' 不是 'int' 类型", 'result': False}
+    assert parcheck.check(param, pattern) == {'message': "'python' 不是 'int' 类型", 'result': False}
 
 
 def test_check_int():

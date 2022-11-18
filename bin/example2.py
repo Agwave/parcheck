@@ -82,7 +82,7 @@ assert pattern == {'elements': {'名字': 'str',
                    'strict': True,
                    'struct': 'dict'}
 pprint(parcheck.check(data, pattern))
-assert parcheck.check(data, pattern) == {'messge': "'{'项目名': '图分析软件', '项目介绍': '实现具有图分析功能的软件', "
-                                                   "'项目时长（月）': 6}' 中没有 "
-                                                   "'项目时长（日）'",
+assert parcheck.check(data, pattern) == {'message': "'{'项目名': '图分析软件', '项目介绍': '实现具有图分析功能的软件', "
+                                                    "'项目时长（月）': 6}' 中没有 "
+                                                    "'项目时长（日）'",
                                          'result': False}
