@@ -25,7 +25,7 @@ class Message:
 class Report:
     PARAM_NOT_A_EXCEPT_TYPE = "'{}' 不是 '{}' 类型"
     DICT_MISSING_KEY = "'{}' 中没有 '{}'"
-    DICT_PARAM_KEY_UNKNOWN = "'{}' 中有未知的 key {}"
+    DICT_PARAM_KEY_UNKNOWN = "'{}' 中有未知的 key '{}'"
     DICT_PARAM_VALUE_NOT_A_EXCEPT_TYPE = "'{}' 不符合期望的模板"
 
 
