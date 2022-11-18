@@ -1,4 +1,4 @@
-# python 参数检查器：parcheck
+# parcheck 快速入门文档
 
 ## 1 校验示例
 
@@ -6,20 +6,21 @@
 import parcheck
 
 data = {
-	"name": "Tony",
+    "name": "Tony",
     "age": 22
 }
 
-# 检查内容：是个 dict，且有 "name", "age" 两个键，"name" 键对应的值是 str，"age" 键对应的值是 int
+# 可以手写期望的检查模板：是个 dict，且有 "name", "age" 两个键，"name" 键对应的值是 str，"age" 键对应的值是 str
 pattern = {
     "struct": "dict",
     "elements": {
         "name": "str",
-        "age": "int"
+        "age": "str"
     }
 }
 
-parcheck.check(data, pattern)
+report = parcheck.check(data, pattern)  # 根据检查模板进行检查，返回检查报告
+print(report)  # 打印检查结果
 ```
 
 ## 2 pattern 模板类型
@@ -56,11 +57,11 @@ pattern 支持的模板类型有
 
 其中 "struct" 字段为 "dict" 指明是 dict 模板类型
 
-"strict" 字段指明是否允许未知字段的存在，为 True 表示不允许有未知的字段存在，为 False 表示允许
+"strict" 字段指明是否允许未知字段的存在，为 True 表示不允许有未知的字段存在，为 False 表示允许。未指定时默认为 False
 
 "elements" 字段指明**必要的键值信息**
 
-"elements" 字段指明**可选的键值信息**，注意该字段只能在 "strict" 为 True 时生效，因为 "strict" 为 False 时任意键名都是可选的。一般情况让 "strict" 为 True 然后使用 "elements_optional" 放宽键值是推荐的模板
+"elements_optional" 字段指明**可选的键值信息**，注意该字段只能在 "strict" 为 True 时生效，因为 "strict" 为 False 时任意键名都是可选的。一般情况让 "strict" 为 True 然后使用 "elements_optional" 放宽键值是推荐的模板
 
 #### 2.1.2 dict 示例
 
@@ -331,11 +332,3 @@ name 对应的 value 的类型是 str，"age" 对应的 value 类型是 int，"g
 ```
 
 可以看到，在 elements 中 "work" 键对应的值也是一个 dict 类型的结构
-
-## 4 推荐使用方法
-
-① 先使用样例数据生成模板 pattern
-
-② 根据自己更细节地需求，调整生成的 pattern，存到配置中
-
-③ 根据配置 和 parcheck.check 进行校验
